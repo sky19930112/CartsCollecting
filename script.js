@@ -4,25 +4,51 @@ function getRandomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+
+
 // Function to count steps required to move carts to the 4th row
 function calculateSteps(topRows) {
+  let capability = 8
   let totalSteps = 0;
   let carts = topRows.map(row => parseInt(row.textContent)); // Extracting cart values
+  console.log(carts)
 
-  for (let i = 0; i < carts.length; i++) {
-    while (carts[i] > 0) {
-      if (carts[i] > 8) {
-        totalSteps++;
-        carts[i] -= 8;
+
+    while (carts[0] > 0) {
+      if (carts[0] > 8) {
+        totalSteps += 6;
+        carts[0] -= 8;
       } else {
-        totalSteps++;
-        carts[i] = 0;
+        totalSteps += 3;
+        carts[1] += carts[0]
+        carts[0] = 0;
       }
     }
-  }
+    while (carts[1] > 0) {
+      if (carts[1] > 8) {
+        totalSteps += 4;
+        carts[1] -= 8;
+      } else {
+        totalSteps += 2;
+        carts[2] += carts[1]
+        carts[1] = 0;
+      }
+    }
+    while (carts[2] > 0) {
+      if (carts[2] > 8) {
+        totalSteps += 1;
+        carts[2] -= 8;
+      } else {
+        totalSteps += 1;
+        carts[2] = 0;
+      }
+    }
+  
 
+  console.log(carts)
   return totalSteps;
 }
+
 
 // Function to insert random numbers followed by "carts" in top 3 rows and calculate steps
 function moveCarts() {
@@ -47,5 +73,10 @@ function moveCarts() {
     }
 
     grid.appendChild(cell);
+
   }
 }
+
+
+
+
